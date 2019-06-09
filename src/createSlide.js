@@ -1,6 +1,6 @@
-const uuid = require('uuid/v1');
+const makeUUID = require('uuid/v1');
 
-module.exports = ({ label, imageUrl, elements }) => {
+module.exports = ({ label, imageUrl, elements, uuid = makeUUID() }) => {
 	const slideArray = [
 		{
 			'@': { rvXMLIvarName: 'cues' },
@@ -15,9 +15,11 @@ module.exports = ({ label, imageUrl, elements }) => {
 		displayElements.RVTextElement = elements;
 	}
 
+	slideArray.push(displayElements);
+
 	const slide = {
 		'@': {
-			UUID: uuid(),
+			UUID: uuid,
 			backgroundColor: '0 0 0 1',
 			chordChartPath: '',
 			drawingBackgroundColor: 'false',
@@ -33,10 +35,10 @@ module.exports = ({ label, imageUrl, elements }) => {
 
 	if (imageUrl) {
 		slide.RVMediaCue = {
-			'@': { UUID: uuid() },
+			'@': { UUID: makeUUID() },
 			RVImageElement: {
 				'@': {
-					UUID: uuid(),
+					UUID: makeUUID(),
 					bezelRadius: '0.000000',
 					displayDelay: '0.000000',
 					displayName: 'ImageElement',

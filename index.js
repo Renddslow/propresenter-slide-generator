@@ -1,14 +1,13 @@
-const toRTF = require('./toRTF');
-const createPresentation = require('./createPresentation');
-const createSlide = require('./createSlide');
+const toRTF = require('./src/utils/toRTF');
+const createPresentation = require('./src/createPresentation');
+const createSlide = require('./src/createSlide');
+const createTextElement = require('./src/createTextElement');
 
-console.log(toRTF({
-	font: 'Didot',
-	color: '#acc35b',
-	text: 'This is a story about a boy\nA story about a little boy and his canoe',
-	fontSize: 150,
-}));
-
-console.log(createPresentation([
-	createSlide({ label: 'Main Slide', imageUrl: 'https://helloworld' }),
-]));
+module.exports = {
+	createPresentation,
+	createSlide,
+	createTextElement: ({ position, content, font, color, fontSize }) => createTextElement({
+		position,
+		content: toRTF({ font, color, text: content, fontSize }),
+	}),
+};
